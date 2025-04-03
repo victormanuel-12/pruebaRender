@@ -13,7 +13,7 @@ namespace proyectoTienda.Models
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid ID { get; set; }
+    public int ID { get; set; }
 
     [Required]
     [StringLength(100)]

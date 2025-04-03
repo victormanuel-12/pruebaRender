@@ -21,13 +21,10 @@ namespace proyectoTienda.Models
     [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo")]
     public int Cantidad { get; set; }
 
-    [Required]
-    [Column(TypeName = "decimal(10, 2)")]
-    public decimal PrecioUnitario { get; set; }
-
+  
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     [Column(TypeName = "decimal(10, 2)")]
-    public decimal Subtotal { get; private set; }
+    public decimal Subtotal { get; set; }
 
     // Propiedades de navegación
     [ForeignKey("IDPedido")]
@@ -38,7 +35,11 @@ namespace proyectoTienda.Models
     // Método para calcular el subtotal
     public decimal CalcularSubtotal()
     {
-      return Cantidad * PrecioUnitario;
+      if (Producto == null)
+      {
+        return 0; // O manejar este caso según los requisitos del negocio
+      }
+      return Cantidad * Producto.Precio; // Accediendo al precio desde la clase Producto
     }
 
     // Método para actualizar el valor de Subtotal
