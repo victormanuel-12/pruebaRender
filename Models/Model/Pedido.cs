@@ -15,7 +15,7 @@ namespace proyectoTienda.Models
     public int IDPedido { get; set; }
 
     [Required]
-    public Guid IDCliente { get; set; }
+    public int IDCliente { get; set; }
 
     [Required]
     public DateTime FechaPedido { get; set; } = DateTime.Now;

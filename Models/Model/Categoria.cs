@@ -19,6 +19,6 @@ namespace proyectoTienda.Models
     public string? Nombre { get; set; }
 
     // Propiedad de navegación
-    public virtual ICollection<Producto>? Productos { get; set; }
+    public  ICollection<Producto>? Productos { get; set; }
   }
 }
