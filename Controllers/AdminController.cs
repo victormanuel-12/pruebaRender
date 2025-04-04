@@ -179,78 +179,116 @@ public async Task<IActionResult> EditarCategoria(EditarCategoriaViewModel model)
     return View(model);
 }
 
-    // Productos
-    // Productos
-    /* [HttpGet]
-    public async Task<IActionResult> Productos(int page = 1, int pageSize = 10)
+    
+    [HttpGet]
+public async Task<IActionResult> Productos(int page = 1)
+{
+     int pageSize = 10; // Tamaño de página: 5 productos por página
+
+    // Obtenemos todos los productos ordenados por categoría
+    // Primero los de categoría ID=1, luego las demás categorías en orden ascendente
+    var productos = _context.Productos
+        .OrderBy(p => p.IDCategoria == 1 ? 0 : 1) // Prioriza categoría ID=1
+        .ThenBy(p => p.IDCategoria)               // Luego ordena por las demás categorías
+        .ThenBy(p => p.Nombre);                   // Orden secundario por nombre
+
+    // Verificamos la cantidad total para depuración
+    int totalProductos = await productos.CountAsync();
+    ViewBag.TotalProductosEnBD = totalProductos;
+
+    // Crear el modelo con paginación
+    var model = await ProductoPaginado<Producto>.CreateAsync(
+        productos,
+        page,
+        pageSize);
+
+    return View(model);
+}
+
+
+
+     [HttpGet]
+public IActionResult AgregarProducto()
+{
+    var producto = new Producto();
+    var categorias = _context.Categorias.ToList(); // Asegúrate de obtener todas las categorías
+
+    var viewModel = new ProductoCategoriaViewModel
     {
+        Producto = producto,
+        Categorias = categorias  // Pasa la lista de categorías
+    };
+
+    return View(viewModel);
+}
+[HttpPost]
+public async Task<IActionResult> AgregaProducto(ProductoCategoriaViewModel viewModel)
+{
+    
         try
         {
-            // Calcular el número de productos a omitir
-            var skip = (page - 1) * pageSize;
+            // Log de los datos del producto
+            _logger.LogInformation(
+                "Datos del producto recibidos: Nombre={Nombre}, Descripcion={Descripcion}, " +
+                "Precio={Precio}, Stock={Stock}, IDCategoria={IDCategoria}",
+                viewModel.Producto.Nombre,
+                viewModel.Producto.Descripcion,
+                viewModel.Producto.Precio,
+                viewModel.Producto.Stock,
+                viewModel.Producto.IDCategoria);
 
-            // Obtener los productos con paginación
-            var productos = await _context.Productos
-                                           .Skip(skip)   // Omitir productos de las páginas anteriores
-                                           .Take(pageSize)  // Tomar solo los productos de la página actual
-                                           .ToListAsync();
+            // Buscar o crear la categoría
+            var categoriaSeleccionada = await _context.Categorias
+                .FirstOrDefaultAsync(c => c.IDCategoria == viewModel.Producto.IDCategoria);
 
-            // Verificar si no hay productos
-            if (productos == null || productos.Count == 0)
-            {
-                ViewBag.Message = "No hay productos disponibles en el sistema.";
-            }
+            
 
-            // Obtener el total de productos para calcular la cantidad de páginas
-            var totalProductos = await _context.Productos.CountAsync();
-            var totalPages = (int)Math.Ceiling((double)totalProductos / pageSize);
+            // Asignar la categoría al producto
+            viewModel.Producto.Categoria = categoriaSeleccionada;
+            
+            // Agregar el producto al contexto
+            _context.Productos.Add(viewModel.Producto);
+            await _context.SaveChangesAsync();
 
-            // Crear el modelo de vista
-            var model = new PaginatedList<Producto>
-            {
-                Items = productos,
-                CurrentPage = page,
-                TotalPages = totalPages,
-                PageSize = pageSize
-            };
-
-            return View(model);
+            return RedirectToAction("Productos");
         }
         catch (Exception ex)
         {
-            return View("Error", new { message = ex.Message });
+            // Log del error
+            _logger.LogError(ex, "Error al agregar producto y categoría");
+            TempData["ErrorMessage"] = "Error: " + ex.Message;
+            return RedirectToAction("Productos");
         }
-    } */
+    }
+    
+   
+   [HttpPost]
+public async Task<IActionResult> EliminarProducto(int id)
+{
+    var producto = await _context.Productos.FindAsync(id);
+    if (producto == null)
+    {
+        return NotFound();
+    }
+
+    _context.Productos.Remove(producto);
+    await _context.SaveChangesAsync();
+    
+    TempData["SuccessMessage"] = "Producto eliminado correctamente.";
+    return RedirectToAction("Productos");
+}
 
 
 
+
+
+
+
+
+
+
+    // Lista de Pedidos
     [HttpGet]
-        public IActionResult AgregarProducto()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AgregarProducto(Producto nuevoProducto)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Productos.Add(nuevoProducto);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Productos");
-                }
-                catch (Exception ex)
-                {
-                    return View("Error", new { message = ex.Message });
-                }
-            }
-            return View(nuevoProducto);
-        }
-
-         // Lista de Pedidos
-        [HttpGet]
         public async Task<IActionResult> ListaOrdenes()
         {
             try
