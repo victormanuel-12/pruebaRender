@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using proyectoTienda.Data;
 using proyectoTienda.Models;
+using proyectoTienda.ViewModel;
 
 namespace proyectoTienda.Controllers
 {
@@ -34,13 +35,13 @@ namespace proyectoTienda.Controllers
             {
                 try
                 {
-                    var categorias = await _context.Categorias
-                        .Select(c => new 
-                        {
-                            Categoria = c,
-                            ProductosCount = c.Productos.Count()  // Contar productos por cada categoría
-                        })
-                        .ToListAsync();
+                     var categorias = await _context.Categorias
+        .Select(c => new CategoriaViewModel
+        {
+            Categoria = c,
+            ProductosCount = c.Productos.Count()
+        })
+        .ToListAsync();
 
                     // Verificar si no hay categorías
                     if (categorias == null || categorias.Count == 0)
@@ -59,78 +60,171 @@ namespace proyectoTienda.Controllers
 
 
          // Agregar Categoria
-        [HttpGet]
-        public IActionResult AgregarCategoria()
-        {
-            return View();
-        }
+       public IActionResult AgregarCategoria()
+{
+    var categoria = new Categoria(); // Asegúrate de inicializar el modelo
+    return View(categoria);
+}
+
 
         [HttpPost]
-        public async Task<IActionResult> AgregarCategoria(Categoria nuevaCategoria)
+public async Task<IActionResult> AgregarCategoria(Categoria nuevaCategoria)
+{
+    if (ModelState.IsValid)
+    {
+        // Validar que el nombre no exista ya (ignorando mayúsculas/minúsculas)
+        bool existeCategoria = await _context.Categorias
+            .AnyAsync(c => c.Nombre.ToLower() == nuevaCategoria.Nombre.ToLower());
+
+        if (existeCategoria)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Categorias.Add(nuevaCategoria);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Categoria");
-                }
-                catch (Exception ex)
-                {
-                    return View("Error", new { message = ex.Message });
-                }
-            }
-            return View(nuevaCategoria);
+            ModelState.AddModelError("Nombre", "Ya existe una categoría con ese nombre.");
+            return View(nuevaCategoria); // Retorna la vista con los datos ingresados
         }
 
+        try
+        {
+            _context.Categorias.Add(nuevaCategoria);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Categoria"); // o el nombre real de tu acción/lista
+        }
+        catch (Exception ex)
+        {
+            // Puedes tener una vista Error.cshtml que reciba un modelo personalizado si quieres
+            return View("Error", new { message = ex.Message });
+        }
+    }
+
+    return View(nuevaCategoria); // Retorna la vista con errores si ModelState es inválido
+}
+
         
-        // Productos
-          // Productos
-/* [HttpGet]
-public async Task<IActionResult> Productos(int page = 1, int pageSize = 10)
+        [HttpPost]
+public async Task<IActionResult> EliminarCategoria(int id)
 {
     try
     {
-        // Calcular el número de productos a omitir
-        var skip = (page - 1) * pageSize;
-
-        // Obtener los productos con paginación
-        var productos = await _context.Productos
-                                       .Skip(skip)   // Omitir productos de las páginas anteriores
-                                       .Take(pageSize)  // Tomar solo los productos de la página actual
-                                       .ToListAsync();
-
-        // Verificar si no hay productos
-        if (productos == null || productos.Count == 0)
+        var categoria = await _context.Categorias.FindAsync(id);
+        if (categoria == null)
         {
-            ViewBag.Message = "No hay productos disponibles en el sistema.";
+            return NotFound();
         }
 
-        // Obtener el total de productos para calcular la cantidad de páginas
-        var totalProductos = await _context.Productos.CountAsync();
-        var totalPages = (int)Math.Ceiling((double)totalProductos / pageSize);
+        // Eliminar la categoría
+        _context.Categorias.Remove(categoria);
+        await _context.SaveChangesAsync();
 
-        // Crear el modelo de vista
-        var model = new PaginatedList<Producto>
-        {
-            Items = productos,
-            CurrentPage = page,
-            TotalPages = totalPages,
-            PageSize = pageSize
-        };
-
-        return View(model);
+        // Redirigir a la vista de categorías después de eliminar
+        return RedirectToAction("Categoria");
     }
     catch (Exception ex)
     {
+        // En caso de error, puedes manejarlo como desees
         return View("Error", new { message = ex.Message });
     }
-} */
+}
+
+
+    [HttpGet]
+    public async Task<IActionResult> EditarCategoria(int id)
+    {
+      // Buscar la categoría en la base de datos
+      var categoria = await _context.Categorias
+                                    .FirstOrDefaultAsync(c => c.IDCategoria == id);
+
+      // Si no se encuentra la categoría, devolver una vista de error o redirigir a otro lugar
+      if (categoria == null)
+      {
+        return NotFound();
+      }
+
+      // Crear el ViewModel para pasar los datos al formulario
+      var viewModel = new EditarCategoriaViewModel
+      {
+        Id = categoria.IDCategoria,
+        Nombre = categoria.Nombre,
+        Descripcion = categoria.Descripcion
+      };
+
+      return View(viewModel);
+    }
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> EditarCategoria(EditarCategoriaViewModel model)
+{
+    if (ModelState.IsValid)
+    {
+        // Buscar la categoría por ID
+        var categoria = await _context.Categorias.FindAsync(model.Id);
+
+        if (categoria == null)
+        {
+            return NotFound();
+        }
+
+        // Actualizar los valores de la categoría
+        categoria.Nombre = model.Nombre;
+        categoria.Descripcion = model.Descripcion;
+
+        // Guardar los cambios en la base de datos
+        _context.Update(categoria);
+        await _context.SaveChangesAsync();
+
+        // Redirigir a la página de categorías
+        return RedirectToAction("Categoria");
+    }
+
+    // Si el modelo no es válido, devolver la vista con el formulario
+    return View(model);
+}
+
+    // Productos
+    // Productos
+    /* [HttpGet]
+    public async Task<IActionResult> Productos(int page = 1, int pageSize = 10)
+    {
+        try
+        {
+            // Calcular el número de productos a omitir
+            var skip = (page - 1) * pageSize;
+
+            // Obtener los productos con paginación
+            var productos = await _context.Productos
+                                           .Skip(skip)   // Omitir productos de las páginas anteriores
+                                           .Take(pageSize)  // Tomar solo los productos de la página actual
+                                           .ToListAsync();
+
+            // Verificar si no hay productos
+            if (productos == null || productos.Count == 0)
+            {
+                ViewBag.Message = "No hay productos disponibles en el sistema.";
+            }
+
+            // Obtener el total de productos para calcular la cantidad de páginas
+            var totalProductos = await _context.Productos.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalProductos / pageSize);
+
+            // Crear el modelo de vista
+            var model = new PaginatedList<Producto>
+            {
+                Items = productos,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                PageSize = pageSize
+            };
+
+            return View(model);
+        }
+        catch (Exception ex)
+        {
+            return View("Error", new { message = ex.Message });
+        }
+    } */
 
 
 
-        [HttpGet]
+    [HttpGet]
         public IActionResult AgregarProducto()
         {
             return View();

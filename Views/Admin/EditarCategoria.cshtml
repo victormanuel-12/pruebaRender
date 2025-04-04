@@ -1,0 +1,24 @@
+@model proyectoTienda.ViewModel.EditarCategoriaViewModel
+
+@{
+    ViewData["Title"] = "Editar Categoría";
+}
+
+<div class="container mt-4">
+    <h1>Editar Categoría</h1>
+
+    <form asp-action="EditarCategoria" method="post">
+        <div class="mb-3">
+            <label for="Nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Model.Nombre" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="Descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="Descripcion" name="Descripcion" required>@Model.Descripcion</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a asp-controller="Admin" asp-action="Categoria" class="btn btn-danger">Cancelar</a>
+    </form>
+</div>
