@@ -11,7 +11,7 @@ using proyectoTienda.Models;
 
 namespace proyectoTienda.Controllers
 {
-    [Route("[controller]")]
+    
     public class AdminController : Controller
     {
           private readonly ILogger<AdminController> _logger;
@@ -24,32 +24,39 @@ namespace proyectoTienda.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult HomeAdmin()
         {
             return View();
         }
         // Categoria
         [HttpGet]
-        public async Task<IActionResult> Categoria()
-        {
-            try
+            public async Task<IActionResult> Categoria()
             {
-                var categorias = await _context.Categorias.ToListAsync();
-
-                // Verificar si no hay categorías
-                if (categorias == null || categorias.Count == 0)
+                try
                 {
-                    ViewBag.Message = "No hay categorías disponibles en el sistema.";
-                }
+                    var categorias = await _context.Categorias
+                        .Select(c => new 
+                        {
+                            Categoria = c,
+                            ProductosCount = c.Productos.Count()  // Contar productos por cada categoría
+                        })
+                        .ToListAsync();
 
-                return View(categorias);
+                    // Verificar si no hay categorías
+                    if (categorias == null || categorias.Count == 0)
+                    {
+                        ViewBag.Message = "No hay categorías disponibles en el sistema.";
+                    }
+
+                    return View(categorias);
+                }
+                catch (Exception ex)
+                {
+                    // En caso de error, mostrar mensaje de error
+                    return View("Error", new { message = ex.Message });
+                }
             }
-            catch (Exception ex)
-            {
-                // En caso de error, mostrar mensaje de error
-                return View("Error", new { message = ex.Message });
-            }
-        }
+
 
          // Agregar Categoria
         [HttpGet]
@@ -80,7 +87,7 @@ namespace proyectoTienda.Controllers
         
         // Productos
           // Productos
-[HttpGet]
+/* [HttpGet]
 public async Task<IActionResult> Productos(int page = 1, int pageSize = 10)
 {
     try
@@ -119,7 +126,7 @@ public async Task<IActionResult> Productos(int page = 1, int pageSize = 10)
     {
         return View("Error", new { message = ex.Message });
     }
-}
+} */
 
 
 
