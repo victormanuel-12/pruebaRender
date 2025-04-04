@@ -100,16 +100,16 @@
                 id="categoriesDropdown"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                onclick="event.preventDefault()"
+                onclick="handleDropdownClick(event)"s
               >
                 Categorías
               </a>
               <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                 <li>
-                  <a class="dropdown-item" href="#">Polos</a>
+                  <a class="dropdown-item" href="@Url.Action("Index", "Catalogo", new { categoriaId = 1 })">Polos</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">Jeans</a>
+                  <a class="dropdown-item" href="@Url.Action("Index", "Catalogo", new { categoriaId = 2 })">Jeans</a>
                 </li>
               </ul>
             </div>
@@ -210,10 +210,10 @@
           <ul class="navbar-nav justify-content-end flex-grow-1">
             <li class="nav-item category-header ps-3">Categorías</li>
             <li class="nav-item">
-              <a class="nav-link" href="categoriaJeans.html">Jeans</a>
+              <a class="nav-link" class="dropdown-item" href="@Url.Action("Index", "Catalogo", new { categoriaId = 1 })">Polos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categoriaPolo.html">Polos</a>
+              <a class="nav-link" class="dropdown-item" href="@Url.Action("Index", "Catalogo", new { categoriaId = 2 })">Jeans</a>
             </li>
             <li class="nav-item category-header ps-3 mt-2">Contacto</li>
             <li class="nav-item">
@@ -277,7 +277,7 @@
                         </div>
                         <div class="category-info">
                             <h3>POLOS</h3>
-                            <a href="/Catalogo/Index" class="category-link">Ver colección</a>
+                            <a href="/Catalogo/Index?categoriaId=1" class="category-link">Ver colección</a>
                         </div>
                     </div>
                 </div>
@@ -288,7 +288,7 @@
                         </div>
                         <div class="category-info">
                             <h3>JEANS</h3>
-                            <a href="/Catalogo/Index" class="category-link">Ver colección</a>
+                            <a href="/Catalogo/Index?categoriaId=2" class="category-link">Ver colección</a>
                         </div>
                     </div>
                 </div>
@@ -316,7 +316,7 @@
           <div class="col-6 col-lg-3 footer-col">
             <h4>Ayuda</h4>
             <ul>
-              <li><a href="contacto.html">Soporte al Cliente</a></li>
+              <li><a href="#">Soporte al Cliente</a></li>
             </ul>
           </div>
           <div class="col-12 col-lg-3 footer-col">
@@ -344,6 +344,20 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+        // Función que se ejecutará cuando se haga clic en el dropdown
+        function handleDropdownClick(event) {
+            // Aquí puedes hacer cualquier acción que desees cuando se haga clic
+            console.log('Dropdown fue clickeado');
+            
+            // Ejemplo: Agregar o quitar una clase CSS cuando se haga clic
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            dropdownMenu.classList.toggle('show');
+            
+            // Si deseas, puedes prevenir el comportamiento predeterminado de Bootstrap
+            // event.preventDefault();
+        }
+    </script>
 </body>
 </html>
 

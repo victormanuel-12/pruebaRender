@@ -27,8 +27,9 @@ namespace proyectoTienda.Controllers
                 .ToList();
 
             return View(productosRecientes);
-        }
-
+        }  
+        
+    
         public IActionResult Privacy()
         {
             return View();
