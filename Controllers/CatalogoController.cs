@@ -23,11 +23,15 @@ namespace proyectoTienda.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            var productos = _context.Productos.ToList();
-            return View("Index", productos);
-        }
+        public IActionResult Index(int? categoriaId)
+    {
+        // Si se pasa un categoriaId, filtra los productos de esa categoría
+        var productos = categoriaId == null 
+            ? _context.Productos.ToList()  // Si no se pasa categoriaId, muestra todos los productos
+            : _context.Productos.Where(p => p.IDCategoria == categoriaId).ToList();
+
+        return View(productos); // Muestra los productos filtrados (o todos si no hay filtro)
+    }
 
         public async Task<IActionResult> Detalles (int? id)
         {
