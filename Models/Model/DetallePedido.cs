@@ -10,10 +10,11 @@ namespace proyectoTienda.Models
   [Table("DetallesPedidos")]
   public class DetallePedido
   {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    
+    [Required]
     public int IDPedido { get; set; }
 
+    
     [Required]
     public int IDProducto { get; set; }
 
@@ -27,10 +28,10 @@ namespace proyectoTienda.Models
     public decimal Subtotal { get; set; }
 
     // Propiedades de navegación
-    [ForeignKey("IDPedido")]
+    
     public Pedido? Pedido { get; set; }
 
-    [ForeignKey("IDProducto")]
+   
     public Producto? Producto { get; set; }
     // Método para calcular el subtotal
     public decimal CalcularSubtotal()

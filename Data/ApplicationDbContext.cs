@@ -15,5 +15,23 @@ public class ApplicationDbContext : IdentityDbContext
   public DbSet<DetallePedido> DetallesPedidos { get; set; }
   public DbSet<Categoria> Categorias { get; set; }
   public DbSet<Pago> Pagos { get; set; }
+  
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+     base.OnModelCreating(modelBuilder); 
+    modelBuilder.Entity<DetallePedido>()
+        .HasKey(dp => new { dp.IDPedido, dp.IDProducto });
+
+    modelBuilder.Entity<DetallePedido>()
+        .HasOne(dp => dp.Pedido)
+        .WithMany(p => p.DetallesPedidos)
+        .HasForeignKey(dp => dp.IDPedido);
+
+    modelBuilder.Entity<DetallePedido>()
+        .HasOne(dp => dp.Producto)
+        .WithMany(p => p.DetallesPedidos)
+        .HasForeignKey(dp => dp.IDPedido);
+  }
+
       
 }
