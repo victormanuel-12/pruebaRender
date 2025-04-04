@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using proyectoTienda.Data;
 using proyectoTienda.Models;
 using Microsoft.EntityFrameworkCore;
+using proyectoTienda.ViewModel;
 
 namespace proyectoTienda.Controllers
 {
@@ -27,6 +28,37 @@ namespace proyectoTienda.Controllers
             var productos = _context.Productos.ToList();
             return View("Index", productos);
         }
+
+        public async Task<IActionResult> Detalles (int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound(); // Devuelve NotFound si no se proporciona el id
+            }
+
+            Producto objProduct = await _context.Productos.FindAsync(id);
+
+            if (objProduct == null)
+            {
+                return NotFound(); // Devuelve NotFound si el producto con el id no existe
+            }
+
+            var similarProductos = await _context.Productos
+                                          .Where(p => p.IDProducto != id && p.IDCategoria == objProduct.IDCategoria) // Excluir el producto actual
+                                          .Take(4) // Limitar a 4 productos
+                                          .ToListAsync();
+
+            var viewModel = new ProductoDetalleViewModel
+            {
+                ProductoPrincipal = objProduct,
+                ProductosSimilares = similarProductos
+            };
+
+            return View(viewModel);
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

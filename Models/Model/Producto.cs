@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace proyectoTienda.Models
 {
@@ -30,6 +31,9 @@ public int Stock { get; set; }
 
     [StringLength(10)]
     public string? Talla { get; set; }
+
+    [NotNull]
+    public string? Detalle { get; set; }
 
     [StringLength(255)]
     public string? ImagenURL { get; set; }
