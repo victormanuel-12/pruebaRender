@@ -8,17 +8,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace proyectoTienda.Models
 {
   [Table("Categorias")]
-    public class Categoria
+  public class Categoria
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int IDCategoria { get; set; }
+     public int IDCategoria { get; set; }
 
-    [Required(ErrorMessage = "El nombre de la categoría es obligatorio.")]
-    [StringLength(50)]
     public string? Nombre { get; set; }
 
+    public string? Descripcion { get; set; }
+    
+    public DateTime? FechaCreacion { get; set; } 
+    
+    
+   
+
+    
+
     // Propiedad de navegación
-    public  ICollection<Producto>? Productos { get; set; }
+    public ICollection<Producto>? Productos { get; set; }
+    
+    
+
   }
 }
