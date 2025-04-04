@@ -51,7 +51,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <a class="navbar-brand logo" href="home.html">SHOP.CO</a>
+          <a class="navbar-brand logo" href="/Home/Index">SHOP.CO</a>
 
           <div
             class="d-lg-none ms-auto d-flex align-items-center navbar-nav-icons-mobile"
@@ -242,9 +242,10 @@
             </div>
 
             <div class="row gy-4 product-row">
-                @foreach (var producto in Model)
-                {
-                    <div class="col-6 col-md-4 col-lg-3">
+            @foreach (var producto in Model)
+            {
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a href="@Url.Action("Detalles", "Catalogo", new { id = producto.IDProducto })" class="product-link">
                         <div class="product-card">
                             <div class="product-image-container">
                                 <img src="@producto.ImagenURL" alt="@producto.Nombre" class="img-fluid" />
@@ -254,12 +255,13 @@
                                 <p class="price">$@producto.Precio</p>
                             </div>
                         </div>
-                    </div>
-                }
+                    </a>
+                </div>
+            }
             </div>
 
             <div class="view-all-container">
-                <a href="/Productos" class="view-all-btn">Ver todo</a>
+                <a href="/Catalogo/Index" class="view-all-btn">Ver todo</a>
             </div>
         </section>
 
@@ -275,7 +277,7 @@
                         </div>
                         <div class="category-info">
                             <h3>POLOS</h3>
-                            <a href="/Categoria/1" class="category-link">Ver colección</a>
+                            <a href="/Catalogo/Index" class="category-link">Ver colección</a>
                         </div>
                     </div>
                 </div>
@@ -286,7 +288,7 @@
                         </div>
                         <div class="category-info">
                             <h3>JEANS</h3>
-                            <a href="/Categoria/2" class="category-link">Ver colección</a>
+                            <a href="/Catalogo/Index" class="category-link">Ver colección</a>
                         </div>
                     </div>
                 </div>
