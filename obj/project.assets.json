@@ -6907,19 +6907,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\palom\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\palom\\Downloads\\Proyecto C#\\Proyecto\\proyectoTienda.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Desktop\\proyectoTienda\\proyectoTienda.csproj",
       "projectName": "proyectoTienda",
-      "projectPath": "C:\\Users\\palom\\Downloads\\Proyecto C#\\Proyecto\\proyectoTienda.csproj",
-      "packagesPath": "C:\\Users\\palom\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\palom\\Downloads\\Proyecto C#\\Proyecto\\obj\\",
+      "projectPath": "C:\\Users\\PC\\Desktop\\proyectoTienda\\proyectoTienda.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PC\\Desktop\\proyectoTienda\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\palom\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -6992,7 +6992,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -7001,7 +7001,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "proyectoTienda depende de Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 8.0.13), pero no se encontró Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.13. Se resolvió una mejor coincidencia aproximada de Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0.",
+      "message": "proyectoTienda depends on Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 8.0.13) but Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.13 was not found. An approximate best match of Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0 was resolved.",
       "libraryId": "Microsoft.VisualStudio.Web.CodeGeneration.Design",
       "targetGraphs": [
         "net8.0"
