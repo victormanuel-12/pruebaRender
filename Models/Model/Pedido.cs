@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using proyectoTienda.Areas.Identity.Pages.Account; // Corrected namespace for ApplicationUser
 
 namespace proyectoTienda.Models
 {
@@ -15,7 +16,7 @@ namespace proyectoTienda.Models
     public int IDPedido { get; set; }
 
     [Required]
-    public int IDCliente { get; set; }
+    public string? IDCliente { get; set; }
 
     [Required]
     public DateTime FechaPedido { get; set; } = DateTime.Now;
@@ -25,7 +26,7 @@ namespace proyectoTienda.Models
 
     // Propiedades de navegación
     [ForeignKey("IDCliente")]
-    public Usuario? Cliente { get; set; }
+        public Usuario? Cliente { get; set; }
 
     public ICollection<DetallePedido>? DetallesPedidos { get; set; }
 
