@@ -152,7 +152,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "proyectoTienda depends on Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 8.0.13) but Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.13 was not found. An approximate best match of Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0 was resolved.",
+      "message": "proyectoTienda depende de Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 8.0.13), pero no se encontró Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.13. Se resolvió una mejor coincidencia aproximada de Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0.",
       "libraryId": "Microsoft.VisualStudio.Web.CodeGeneration.Design",
       "targetGraphs": [
         "net8.0"

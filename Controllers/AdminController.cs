@@ -183,7 +183,7 @@ public async Task<IActionResult> EditarCategoria(EditarCategoriaViewModel model)
     [HttpGet]
 public async Task<IActionResult> Productos(int page = 1)
 {
-     int pageSize = 10; // Tamaño de página: 5 productos por página
+     int pageSize = 5; // Tamaño de página: 5 productos por página
 
     // Obtenemos todos los productos ordenados por categoría
     // Primero los de categoría ID=1, luego las demás categorías en orden ascendente
