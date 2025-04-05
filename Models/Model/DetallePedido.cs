@@ -23,7 +23,7 @@ namespace proyectoTienda.Models
     public int Cantidad { get; set; }
 
   
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    
     [Column(TypeName = "decimal(10, 2)")]
     public decimal Subtotal { get; set; }
 

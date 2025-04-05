@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using proyectoTienda.Models;
 namespace proyectoTienda.Data;
 
-public class ApplicationDbContext : IdentityDbContext<Usuario>
+public class ApplicationDbContext : IdentityDbContext
 {
   public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
       : base(options)
   {
   }
-  
+  public DbSet<Usuario> Usuarios { get; set; }
   public DbSet<Producto> Productos { get; set; }
   public DbSet<Pedido> Pedidos { get; set; }
   public DbSet<DetallePedido> DetallesPedidos { get; set; }
@@ -30,7 +30,7 @@ public class ApplicationDbContext : IdentityDbContext<Usuario>
     modelBuilder.Entity<DetallePedido>()
         .HasOne(dp => dp.Producto)
         .WithMany(p => p.DetallesPedidos)
-        .HasForeignKey(dp => dp.IDPedido);
+        .HasForeignKey(dp => dp.IDProducto);
   }
 
       

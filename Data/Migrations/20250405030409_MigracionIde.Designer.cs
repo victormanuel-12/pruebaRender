@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using proyectoTienda.Data;
 
@@ -10,9 +11,11 @@ using proyectoTienda.Data;
 namespace proyectoTienda.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250405030409_MigracionIde")]
+    partial class MigracionIde
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.13");
@@ -245,11 +248,10 @@ namespace proyectoTienda.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Subtotal")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("decimal(10, 2)");
 
                     b.HasKey("IDPedido", "IDProducto");
-
-                    b.HasIndex("IDProducto");
 
                     b.ToTable("DetallesPedidos");
                 });
@@ -350,7 +352,13 @@ namespace proyectoTienda.Data.Migrations
                     b.Property<string>("ID")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Contrasena")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Direccion")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
@@ -433,7 +441,7 @@ namespace proyectoTienda.Data.Migrations
 
                     b.HasOne("proyectoTienda.Models.Producto", "Producto")
                         .WithMany("DetallesPedidos")
-                        .HasForeignKey("IDProducto")
+                        .HasForeignKey("IDPedido")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

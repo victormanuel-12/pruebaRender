@@ -246,14 +246,18 @@
           <p class="product-price">S/@Model.ProductoPrincipal.Precio</p>
           <p class="product-description">@Model.ProductoPrincipal.Descripcion</p>
 
-          <div class="add-to-cart-container">
-            <div class="quantity-selector">
-              <button class="quantity-btn minus">-</button>
-              <span class="quantity">1</span>
-              <button class="quantity-btn plus">+</button>
-            </div>
-            <button class="add-to-cart-btn" asp-controller="" asp-action="" asp-route-id="">+ Agregar al carro</button>
-          </div>
+          <form asp-controller="Catalogo" asp-action="Detalles" method="post">
+    <input type="hidden" name="productoId" value="@Model.ProductoPrincipal.IDProducto" />
+    <div class="d-flex align-items-center mb-3">
+        <button type="button" class="btn btn-outline-secondary" onclick="decrementarCantidad()">-</button>
+        <input type="number" name="cantidad" id="cantidadInput" value="1" min="1" max="@Model.ProductoPrincipal.Stock" class="form-control mx-2 text-center" style="width: 80px;" />
+        <button type="button" class="btn btn-outline-secondary" onclick="incrementarCantidad()">+</button>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-cart-plus"></i> Agregar al carrito
+    </button>
+</form>
+
 
           <div class="product-details">
            <h3>Detalles del producto</></h3>
@@ -267,6 +271,12 @@
           </div>
         </div>
       </div>
+@if (TempData["Mensaje"] != null && !string.IsNullOrWhiteSpace(TempData["Mensaje"].ToString()))
+{
+    <div class="alert alert-warning">
+        @TempData["Mensaje"]
+    </div>
+}
 
       <div class="similar-products-section">
         <h2 class="similar-products-title">
@@ -365,6 +375,22 @@
             // Si deseas, puedes prevenir el comportamiento predeterminado de Bootstrap
             // event.preventDefault();
         }
+         function decrementarCantidad() {
+        const input = document.getElementById('cantidadInput');
+        let value = parseInt(input.value);
+        if (value > 1) {
+            input.value = value - 1;
+        }
+    }
+
+    function incrementarCantidad() {
+        const input = document.getElementById('cantidadInput');
+        let value = parseInt(input.value);
+        const maxStock = @Model.ProductoPrincipal.Stock;
+        if (value < maxStock) {
+            input.value = value + 1;
+        }
+    }
     </script>
   </body>
 </html>
