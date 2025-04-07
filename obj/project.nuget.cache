@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RCGXvnOqL0s=",
+  "dgSpecHash": "ZPZ0y2OdPno=",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Desktop\\versiones\\Nueva carpeta (2)\\proyectoTienda\\proyectoTienda.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\Nueva carpeta (17)\\proyectoTienda\\proyectoTienda.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -152,7 +152,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "proyectoTienda depends on Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 8.0.13) but Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.13 was not found. An approximate best match of Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0 was resolved.",
+      "message": "proyectoTienda depende de Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 8.0.13), pero no se encontró Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.13. Se resolvió una mejor coincidencia aproximada de Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0.",
       "libraryId": "Microsoft.VisualStudio.Web.CodeGeneration.Design",
       "targetGraphs": [
         "net8.0"
