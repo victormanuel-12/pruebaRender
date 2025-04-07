@@ -6912,11 +6912,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PC\\Desktop\\proyectoTienda\\proyectoTienda.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Desktop\\versiones\\Nueva carpeta (2)\\proyectoTienda\\proyectoTienda.csproj",
       "projectName": "proyectoTienda",
-      "projectPath": "C:\\Users\\PC\\Desktop\\proyectoTienda\\proyectoTienda.csproj",
+      "projectPath": "C:\\Users\\PC\\Desktop\\versiones\\Nueva carpeta (2)\\proyectoTienda\\proyectoTienda.csproj",
       "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PC\\Desktop\\proyectoTienda\\obj\\",
+      "outputPath": "C:\\Users\\PC\\Desktop\\versiones\\Nueva carpeta (2)\\proyectoTienda\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -7001,7 +7001,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "proyectoTienda depende de Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 8.0.13), pero no se encontró Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.13. Se resolvió una mejor coincidencia aproximada de Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0.",
+      "message": "proyectoTienda depends on Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 8.0.13) but Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.13 was not found. An approximate best match of Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0 was resolved.",
       "libraryId": "Microsoft.VisualStudio.Web.CodeGeneration.Design",
       "targetGraphs": [
         "net8.0"

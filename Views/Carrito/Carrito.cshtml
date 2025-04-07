@@ -116,6 +116,26 @@
                 </div>
             </div>
         </div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 @if (TempData["Mensaje"] != null && !string.IsNullOrWhiteSpace(TempData["Mensaje"].ToString()))
 {
     <div id="tempDataModal" class="temp-data-modal">
@@ -130,6 +150,7 @@
         </div>
     </div>
 }
+
         <!-- Columna del resumen - ahora usamos lg para que cambie en 991px -->
         <div class="col-12 col-lg-4">
             <div class="card shadow-sm mb-4 sticky-top" style="top: 20px; z-index: 100;">
@@ -277,6 +298,7 @@
         });
 
         // Mostrar el modal con info personalizada
+
 document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('tempDataModal');
             const closeButton = document.querySelector('.temp-data-close');
@@ -298,6 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 500);
             }
         });
+
 
     </script>
 }

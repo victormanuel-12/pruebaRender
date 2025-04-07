@@ -254,6 +254,35 @@ namespace proyectoTienda.Data.Migrations
                     b.ToTable("DetallesPedidos");
                 });
 
+            modelBuilder.Entity("proyectoTienda.Models.Model.ItemCarrito", b =>
+                {
+                    b.Property<int>("IDItem")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ProductoIDProducto")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IDItem");
+
+                    b.HasIndex("ProductoIDProducto");
+
+                    b.ToTable("ItemsCarrito");
+                });
+
             modelBuilder.Entity("proyectoTienda.Models.Pago", b =>
                 {
                     b.Property<int>("IDPago")
@@ -296,6 +325,9 @@ namespace proyectoTienda.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(10, 2)");
+
                     b.HasKey("IDPedido");
 
                     b.HasIndex("IDCliente");
@@ -328,8 +360,11 @@ namespace proyectoTienda.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Precio")
-                        .HasColumnType("decimal(10, 2)");
+                    b.Property<decimal>("PrecioActual")
+                        .HasColumnType("decimal(10, 1)");
+
+                    b.Property<decimal>("PrecioOriginal")
+                        .HasColumnType("decimal(10, 1)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
@@ -438,6 +473,15 @@ namespace proyectoTienda.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Pedido");
+
+                    b.Navigation("Producto");
+                });
+
+            modelBuilder.Entity("proyectoTienda.Models.Model.ItemCarrito", b =>
+                {
+                    b.HasOne("proyectoTienda.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoIDProducto");
 
                     b.Navigation("Producto");
                 });
