@@ -6912,11 +6912,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PC\\Desktop\\Nueva carpeta (17)\\proyectoTienda\\proyectoTienda.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Desktop\\proyectoactual\\proyectoTienda\\proyectoTienda.csproj",
       "projectName": "proyectoTienda",
-      "projectPath": "C:\\Users\\PC\\Desktop\\Nueva carpeta (17)\\proyectoTienda\\proyectoTienda.csproj",
+      "projectPath": "C:\\Users\\PC\\Desktop\\proyectoactual\\proyectoTienda\\proyectoTienda.csproj",
       "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PC\\Desktop\\Nueva carpeta (17)\\proyectoTienda\\obj\\",
+      "outputPath": "C:\\Users\\PC\\Desktop\\proyectoactual\\proyectoTienda\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
